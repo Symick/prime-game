@@ -2,7 +2,7 @@ import { GameNumber } from "../model/gameNumber";
 
 export class SieveOfEratosthenes {
 	static createList(range: number): Array<GameNumber> {
-		const prime = Array.from({ length: range + 1 }, (_, i) => true);
+		const prime = Array.from({ length: range + 1 }, (_) => true);
 
 		for (let p = 2; p * p <= range; p++) {
 			// If prime[p] is not changed, then it is a

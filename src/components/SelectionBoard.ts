@@ -50,7 +50,7 @@ export class SelectionBoard extends LitElement {
 					}}">
 					Finish
 				</button>
-				<button class="button" @click="">Reset</button>
+				<button class="button" @click="${this.resetGame}">Reset</button>
 				<button class="button" @click="">Quit</button>
 			</div>
 		`;
@@ -119,6 +119,22 @@ export class SelectionBoard extends LitElement {
 		}
 
 		return isWin;
+	}
+
+	/**
+	 * Reset the game by setting all state of the game and numbers back to default
+	 */
+	private resetGame() {
+		//reset the game state if for example the game is finished and resetted
+		this.gameFinished = false;
+
+		//reset numbers to origin
+		for (const gameNumber of this.numberList) {
+			gameNumber.correct = true;
+			gameNumber.selected = false;
+		}
+
+		this.requestUpdate();
 	}
 }
 

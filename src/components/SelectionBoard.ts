@@ -1,4 +1,4 @@
-import { LitElement, PropertyValueMap, TemplateResult, html } from "lit";
+import { LitElement, PropertyValueMap, html } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { SieveOfEratosthenes } from "../utils/sieveOfEratosthenes";
 import { GameNumber } from "../model/gameNumber";

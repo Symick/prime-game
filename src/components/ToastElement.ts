@@ -1,6 +1,13 @@
 import { LitElement, html } from "lit";
 import { customElement, state } from "lit/decorators.js";
 
+/**
+ * a element to show a toast element
+ *
+ * <b> important!<b> Only use the static show method
+ *
+ * @author Julian Kruithof
+ */
 @customElement("toast-element")
 export class ToastElement extends LitElement {
 	protected createRenderRoot(): HTMLElement | DocumentFragment {
@@ -26,6 +33,12 @@ export class ToastElement extends LitElement {
 		</div>`;
 	}
 
+	/**
+	 * Add the custom toast to the dom
+	 * @param title - title to use for the toast
+	 * @param message - message to display in the toast
+	 * @param duration - the duration the toast needs to be shown for, default is 3 seconds
+	 */
 	static show(title: string, message: string, duration: number = 3000) {
 		const existing = document.querySelector("toast-element");
 		if (existing) {

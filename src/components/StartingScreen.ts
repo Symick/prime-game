@@ -1,6 +1,13 @@
 import { LitElement, html } from "lit";
 import { customElement, query, state } from "lit/decorators.js";
 
+/**
+ * First screen the user sees when starting the app.
+ *
+ * some explanation and option to give the range
+ *
+ * @author Julian Kruithof
+ */
 @customElement("starting-screen")
 export class StartingScreen extends LitElement {
 	protected createRenderRoot() {
@@ -40,6 +47,11 @@ export class StartingScreen extends LitElement {
 		`;
 	}
 
+	/**
+	 * dispatch an event to start the game via the main application
+	 * @param event the original event used to fire the start game method
+	 * @returns if range is not a number the function returns prematurely
+	 */
 	private _startGame(event: Event) {
 		event.preventDefault();
 

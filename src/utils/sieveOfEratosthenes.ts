@@ -1,6 +1,16 @@
 import { GameNumber } from "../model/gameNumber";
 
+/**
+ * Class to handle the logic of the sieve of eratosthenes algorithm used to determine if a number is prime
+ *
+ * @author Julian Kruithof
+ */
 export class SieveOfEratosthenes {
+	/**
+	 * Create a list form 1 to range where all prime numbers are marked as prime
+	 * @param range the range of numbers to generate a list for
+	 * @returns a list of game numbers holding information about a certain number
+	 */
 	static createList(range: number): Array<GameNumber> {
 		const prime = Array.from({ length: range + 1 }, (_) => true);
 

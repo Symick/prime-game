@@ -1,7 +1,7 @@
-import { LitElement, html } from "lit";
-import { customElement, property } from "lit/decorators.js";
-import litLogo from "../assets/lit.svg";
-import viteLogo from "/vite.svg";
+import { LitElement, PropertyValueMap, html } from "lit";
+import { customElement, property, state } from "lit/decorators.js";
+import { SieveOfEratosthenes } from "../utils/sieveOfEratosthenes";
+import { GameNumber } from "../model/gameNumber";
 
 /**
  * An example element.
@@ -14,40 +14,47 @@ export class MyElement extends LitElement {
 	createRenderRoot() {
 		return this;
 	}
-	/**
-	 * Copy for the read the docs hint.
-	 */
-	@property()
-	docsHint = "Click on the Vite and Lit logos to learn more";
+
+	constructor() {
+		super();
+		this.numberList = SieveOfEratosthenes.createList(30);
+	}
 
 	/**
 	 * The number of times the button has been clicked.
 	 */
-	@property({ type: Number })
-	count = 0;
+	@property()
+	range = 0;
+
+	numberList: Array<GameNumber> = [];
+
+	protected updated(
+		_changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>
+	): void {
+		if (_changedProperties.has("range")) {
+			this.numberList = SieveOfEratosthenes.createList(this.range);
+		}
+	}
 
 	render() {
 		return html`
-			<div>
-				<a href="https://vitejs.dev" target="_blank">
-					<img src=${viteLogo} class="logo" alt="Vite logo" />
-				</a>
-				<a href="https://lit.dev" target="_blank">
-					<img src=${litLogo} class="logo lit" alt="Lit logo" />
-				</a>
+			<div class="grid grid-cols-10">
+				${this.numberList.map((num) => this.displayNumber(num))}
 			</div>
-			<slot></slot>
-			<div class="bg-slate-950">
-				<button @click=${this._onClick} class="bg-slate-500" part="button">
-					count is ${this.count}
-				</button>
-			</div>
-			<p class="read-the-docs">${this.docsHint}</p>
 		`;
 	}
 
-	private _onClick() {
-		this.count++;
+	displayNumber(num: GameNumber) {
+		return html`
+			<div>
+				<label
+					class="${num.isPrime ? "text-red-700" : "text-gray-900"}"
+					for="checkbox${num.number}"
+					>${num.number}</label
+				>
+				<input type="checkbox" id="checkbox${num.number}" />
+			</div>
+		`;
 	}
 }
 

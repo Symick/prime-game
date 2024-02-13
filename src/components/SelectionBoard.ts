@@ -1,4 +1,4 @@
-import { LitElement, PropertyValueMap, html } from "lit";
+import { LitElement, PropertyValueMap, TemplateResult, html } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { SieveOfEratosthenes } from "../utils/sieveOfEratosthenes";
 import { GameNumber } from "../model/gameNumber";
@@ -8,6 +8,8 @@ import { ToastElement } from "./ToastElement";
  * Main game component
  *
  * In here the board with all numbers is generated which can be selected by the user
+ *
+ * @author Julian Kruithof
  */
 @customElement("selection-board")
 export class SelectionBoard extends LitElement {
@@ -27,6 +29,7 @@ export class SelectionBoard extends LitElement {
 	protected willUpdate(
 		_changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>
 	): void {
+		//initialize the numbers list
 		if (_changedProperties.has("range")) {
 			this.numberList = SieveOfEratosthenes.createList(this.range);
 		}
@@ -38,7 +41,7 @@ export class SelectionBoard extends LitElement {
 				Click on the numbers you think are prime! Hit finish if you think you are done!
 			</p>
 			<div
-				class="grid grid-cols-5 sm:grid-cols-10 max-w-[80vw] max-h-[50vh] sm:max-h-[70vh] overflow-y-scroll gap-4 place-items-center border-1 rounded-t border-solid bg-white p-3 mt-4">
+				class="grid grid-cols-5 sm:grid-cols-8 md:grid-cols-10 max-w-[80vw] max-h-[50vh] sm:max-h-[70vh] overflow-y-auto gap-4 place-items-center border-1 rounded-t border-solid bg-white p-3 mt-4">
 				${this.numberList.map((num) => this.displayNumber(num))}
 			</div>
 			<div class="flex justify-evenly bg-white rounded-b py-4">
@@ -51,11 +54,16 @@ export class SelectionBoard extends LitElement {
 					Finish
 				</button>
 				<button class="button" @click="${this.resetGame}">Reset</button>
-				<button class="button" @click="">Quit</button>
+				<button class="button" @click="${this.quitGame}">Quit</button>
 			</div>
 		`;
 	}
 
+	/**
+	 * Handle the logic of displaying one game number
+	 * @param num the game number to be displayed
+	 * @returns the html template for a game number
+	 */
 	private displayNumber(num: GameNumber) {
 		return html`
 			<label
@@ -75,12 +83,20 @@ export class SelectionBoard extends LitElement {
 		`;
 	}
 
+	/**
+	 * Change the selected state of a game number
+	 * @param num the game number which was clicked on
+	 */
 	private onSelect(num: GameNumber) {
 		num.correct = true; //reset correct to not give anything away
 		num.selected = !num.selected;
 		this.requestUpdate();
 	}
 
+	/**
+	 * check if all primes are correctly selected, and no non prime numbers are selected.
+	 * @returns true is game has been won, false if not
+	 */
 	private checkWin(): boolean {
 		let isWin = true;
 		let incorrectNotSelected: number = 0;
@@ -135,6 +151,14 @@ export class SelectionBoard extends LitElement {
 		}
 
 		this.requestUpdate();
+	}
+
+	/**
+	 * dispatch the quit event to the parent
+	 */
+	private quitGame() {
+		const event = new Event("quit", { bubbles: true, composed: true });
+		this.dispatchEvent(event);
 	}
 }
 

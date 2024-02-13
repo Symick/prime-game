@@ -1,1 +1,1 @@
-export * from "./components/SelectionBoard";
+export * from "./components/AppComponent";

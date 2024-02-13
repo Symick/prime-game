@@ -1,11 +1,11 @@
-import { LitElement, PropertyValueMap, html } from "lit";
+import { LitElement, PropertyValueMap, html, nothing } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { SieveOfEratosthenes } from "../utils/sieveOfEratosthenes";
 import { GameNumber } from "../model/gameNumber";
 
 /**
  * Main game component
- * 
+ *
  * In here the board with all numbers is generated which can be selected by the user
  */
 @customElement("selection-board")
@@ -32,7 +32,8 @@ export class SelectionBoard extends LitElement {
 
 	render() {
 		return html`
-			<div class="grid grid-cols-10">
+			<div
+				class="grid grid-cols-5 sm:grid-cols-10  gap-4 place-items-center border-1 rounded border-solid bg-white p-3">
 				${this.numberList.map((num) => this.displayNumber(num))}
 			</div>
 		`;
@@ -40,15 +41,24 @@ export class SelectionBoard extends LitElement {
 
 	displayNumber(num: GameNumber) {
 		return html`
-			<div>
-				<label
-					class="${num.isPrime ? "text-red-700" : "text-gray-900"}"
-					for="checkbox${num.number}"
-					>${num.number}</label
-				>
-				<input type="checkbox" id="checkbox${num.number}" />
-			</div>
+			<label
+				class="cursor-pointer border-2 border-solid  p-2 block min-w-10 text-center aspect-square rounded ${num.selected
+					? "border-black"
+					: "border-gray-200"}"
+				for="checkbox${num.number}"
+				>${num.number}</label
+			>
+			<input
+				class="hidden"
+				type="checkbox"
+				id="checkbox${num.number}"
+				@change="${() => this.onSelect(num)}" />
 		`;
+	}
+
+	onSelect(num: GameNumber) {
+		num.selected = !num.selected;
+		this.requestUpdate();
 	}
 }
 

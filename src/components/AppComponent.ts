@@ -30,7 +30,8 @@ export class AppComponent extends LitElement {
 	}
 
 	private _startGame(e: CustomEvent) {
-		console.log(e.detail.range);
+		this.isRunning = true;
+		this.range = e.detail.range;
 	}
 }
 

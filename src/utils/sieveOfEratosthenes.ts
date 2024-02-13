@@ -14,10 +14,10 @@ export class SieveOfEratosthenes {
 		}
 
 		const numberList: Array<GameNumber> = new Array(range);
-		numberList.push(new GameNumber(1, false, false));
+		numberList[0] = new GameNumber(1, false, false);
 		for (let i = 2; i <= range; i++) {
 			const num = new GameNumber(i, prime[i], false);
-			numberList.push(num);
+			numberList[i - 1] = num;
 		}
 
 		return numberList;

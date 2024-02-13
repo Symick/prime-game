@@ -12,7 +12,7 @@ export class AppComponent extends LitElement {
 	range: number = 30;
 
 	@state()
-	isRunning: boolean = false;
+	isRunning: boolean = true;
 
 	render() {
 		return html` <h1 class="text-center my-4 font-bold text-3xl md:text-5xl">

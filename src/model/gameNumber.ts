@@ -2,6 +2,7 @@ export class GameNumber {
 	private _number: number;
 	private _isPrime: boolean;
 	private _selected: boolean;
+	private _correct = true;
 	constructor(number: number, isPrime: boolean, selected: boolean) {
 		this._number = number;
 		this._isPrime = isPrime;
@@ -22,5 +23,13 @@ export class GameNumber {
 
 	public set selected(selected: boolean) {
 		this._selected = selected;
+	}
+
+	public get correct(): boolean {
+		return this._correct;
+	}
+
+	public set correct(correct: boolean) {
+		this._correct = correct;
 	}
 }

@@ -14,6 +14,8 @@ Welcome to the Prime Number Game! This is a simple game where users can select n
    - After clicking the "Finish" button, the system will check whether all selected numbers are correct.
    - You will receive a toast message indicating whether you won or if there are incorrect selections (e.g., prime numbers not selected, non-prime numbers selected).
 
+## Live demo
+You can find a live demo on [github pages](https://symick.github.io/prime-game/)
 
 
 ## About the Sieve of Eratosthenes Algorithm

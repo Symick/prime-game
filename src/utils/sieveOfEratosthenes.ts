@@ -12,22 +12,16 @@ export class SieveOfEratosthenes {
 	 * @returns a list of game numbers holding information about a certain number
 	 */
 	static createList(range: number): Array<GameNumber> {
-		const prime = Array.from({ length: range + 1 }, (_) => true);
+		const numberList: Array<GameNumber> = Array.from(
+			{ length: range + 1 },
+			(_, i) => new GameNumber(i, true, false) // make the list 0 based, i.e number 1 starts on index 0. 0 should not be displayed in the list
+		);
 
+		numberList[0].isPrime = false; //1 is not a prime number
 		for (let p = 2; p * p <= range; p++) {
-			// If prime[p] is not changed, then it is a
-			// prime
-			if (prime[p] == true) {
-				// Update all multiples of p
-				for (let i = p * p; i <= range; i += p) prime[i] = false;
+			if (numberList[p - 1].isPrime) {
+				for (let i = p * p; i <= range; i += p) numberList[i - 1].isPrime = false;
 			}
-		}
-
-		const numberList: Array<GameNumber> = new Array(range);
-		numberList[0] = new GameNumber(1, false, false);
-		for (let i = 2; i <= range; i++) {
-			const num = new GameNumber(i, prime[i], false);
-			numberList[i - 1] = num;
 		}
 
 		return numberList;

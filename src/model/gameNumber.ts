@@ -29,6 +29,10 @@ export class GameNumber {
 		return this._isPrime;
 	}
 
+	public set isPrime(isPrime: boolean) {
+		this._isPrime = isPrime;
+	}
+
 	public get selected(): boolean {
 		return this._selected;
 	}

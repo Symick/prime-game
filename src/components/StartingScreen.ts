@@ -30,10 +30,10 @@ export class StartingScreen extends LitElement {
 				</p>
 				<form class="mt-5 flex-col sm:flex-row gap-4 flex justify-around">
 					<div>
-						<label class="font-semibold">Range of numbers:</label>
+						<label class="font-semibold mr-4">Range of numbers:</label>
 						<input
 							type="number"
-							class="rounded  sm:max-w-[10ch] border-black border-solid border-2 focus:outline-blue-600 py-1 px-4
+							class="rounded w-full  sm:max-w-[10ch] border-black border-solid border-2 focus:outline-blue-600 py-1 px-4
 							required ${this.givenRange <= 0 || this.givenRange > 50000 ? "border-red-600" : ""}"
 							@blur="${() => (this.givenRange = this._input.valueAsNumber)}" />
 						<p class="text-red-600">

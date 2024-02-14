@@ -41,7 +41,7 @@ export class SelectionBoard extends LitElement {
 				Click on the numbers you think are prime! Hit finish if you think you are done!
 			</p>
 			<div
-				class="grid grid-cols-5 sm:grid-cols-8 md:grid-cols-10 max-w-[80vw] max-h-[50vh] sm:max-h-[70vh] overflow-y-auto gap-4 place-items-center border-1 rounded-t border-solid bg-white p-3 mt-4">
+				class="grid grid-cols-5 sm:grid-cols-8 md:grid-cols-10 max-w-[80vw] max-h-[40vh] sm:max-h-[50vh] overflow-y-auto gap-4 place-items-center border-1 rounded-t border-solid bg-white p-3 mt-4">
 				${this.numberList.map((num) => this.displayNumber(num))}
 			</div>
 			<div class="flex justify-evenly bg-white rounded-b py-4">

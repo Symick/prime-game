@@ -21,12 +21,19 @@ export class AppComponent extends LitElement {
 	isRunning: boolean = false; //keep track of game state
 
 	render() {
-		return html` <h1 class="text-center my-4 font-bold text-3xl md:text-5xl">
-				The prime number game
-			</h1>
-			<main class="flex items-center justify-center flex-col">
-				${this.loadScreen()}
-			</main>`;
+		return html`
+			<header>
+				<h1 class="text-center my-6 font-bold  text-2xl sm:text-3xl md:text-5xl">
+					The prime number game
+				</h1>
+			</header>
+			<main class="flex items-center justify-center flex-col">${this.loadScreen()}</main>
+			<footer class="text-center fixed bottom-0 w-svw bg-blue-700 p-4">
+				<p class="text-white text-xs">
+					&copy; 2024 Julian Kruithof. All rights reserved.
+				</p>
+			</footer>
+		`;
 	}
 
 	/**

@@ -25,8 +25,6 @@ export class SieveOfEratosthenes {
 			}
 		}
 
-		console.log(numberList);
-
 		return numberList;
 	}
 }

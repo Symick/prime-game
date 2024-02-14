@@ -28,20 +28,28 @@ export class StartingScreen extends LitElement {
 					list of all numbers from 1 to your given range. Your task is to select all
 					the prime numbers. Good luck!
 				</p>
-				<form class="mt-5 flex justify-around">
+				<form class="mt-5 flex-col sm:flex-row gap-4 flex justify-around">
 					<div>
 						<label class="font-semibold">Range of numbers:</label>
 						<input
 							type="number"
-							class="rounded border-black border-solid border-2 focus:outline-blue-600 py-1 px-4
-							required ${this.givenRange <= 0 ? "border-red-600" : ""}"
+							class="rounded  sm:max-w-[6ch] border-black border-solid border-2 focus:outline-blue-600 py-1 px-4
+							required ${this.givenRange <= 0 || this.givenRange > 50000 ? "border-red-600" : ""}"
 							@blur="${() => (this.givenRange = this._input.valueAsNumber)}" />
 						<p class="text-red-600">
-							${this.givenRange <= 0 ? html`Range must be greater than 0` : ""}
+							${this.givenRange <= 0 || this.givenRange > 50000
+								? html`Range must be between 1 and 50000 `
+								: ""}
 						</p>
 					</div>
-
-					<button class="button w-80" @click="${this._startGame}">Start</button>
+					<div class="flex flex-col lg:flex-row gap-4">
+						<button class="button sm:w-[20vw]" @click="${this._startGame}">
+							Start
+						</button>
+						<button class="button" @click="${this._startRandomGame}">
+							Start with random range
+						</button>
+					</div>
 				</form>
 			</div>
 		`;
@@ -62,6 +70,22 @@ export class StartingScreen extends LitElement {
 			return;
 		}
 		this.givenRange = range;
+		const options = {
+			detail: { range },
+			bubbles: true,
+			composed: true,
+		};
+
+		this.dispatchEvent(new CustomEvent("start", options));
+	}
+
+	private _startRandomGame(event: Event) {
+		event.preventDefault();
+
+		const range = Math.floor(Math.random() * (1000 - 20 + 1) + 20);
+
+		this.givenRange = range;
+
 		const options = {
 			detail: { range },
 			bubbles: true,

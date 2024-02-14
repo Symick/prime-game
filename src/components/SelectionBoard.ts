@@ -65,6 +65,7 @@ export class SelectionBoard extends LitElement {
 	 * @returns the html template for a game number
 	 */
 	private displayNumber(num: GameNumber) {
+		if (num.number == 0) return;
 		return html`
 			<label
 				class="cursor-pointer border-2 border-solid border-gray-900  p-2 block min-w-10 text-center aspect-square rounded transition-all duration-300 

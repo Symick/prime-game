@@ -63,7 +63,12 @@ export class StartingScreen extends LitElement {
 	private _startGame(event: Event) {
 		event.preventDefault();
 
-		const range = Math.abs(this._input.valueAsNumber) as number;
+		const range = this._input.valueAsNumber as number;
+
+		if (range <= 0 || range > 50000) {
+			this.givenRange = 0;
+			return;
+		}
 
 		if (isNaN(range)) {
 			this.givenRange = 0;
